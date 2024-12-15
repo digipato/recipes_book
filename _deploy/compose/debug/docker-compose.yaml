@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   django:
-    build:
-      context: ../../build_image
-      dockerfile: ./debug/Dockerfile
+    image: '${RECIPES_IMAGE_NAME}'
 
     ports:
       - "8001:8000"

@@ -9,12 +9,11 @@ class Recipe(models.Model):
     execution = models.TextField()
     execution_time = models.TextField()
     person_number = models.IntegerField()
-    # noinspection PyTypeChecker
     author = models.ForeignKey(
         Author,
-        related_name='author',
-        null=True,
-        on_delete=models.SET_NULL()
+        related_name='recipes',
+        on_delete=models.SET(None),
+        null = True,
     )
     quote = models.TextField()
 

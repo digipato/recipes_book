@@ -19,5 +19,5 @@ from django.urls import path, include
 from .views import RecipesView
 
 urlpatterns = [
-    path('/', view=RecipesView.as_view(), name='home'),
+    path('', view=RecipesView.as_view(), name='home'),
 ]

@@ -1,2 +1,62 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+env/
 venv/
+virtualenv/
+.env/
+.venv/
+.virtualenv/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+*.tar.gz
+*.zip
+*.whl
+
+# Logs and databases
+*.log
+*.out
+*.err
+logs/
+*.sqlite3
+*.db
+
+# IDEs and editors
 .idea/
+.vscode/
+.project
+.pydevproject
+.DS_Store
+
+# Testing
+.cache/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Configurations
+*.env
+.env.*
+*.cfg
+*.ini
+*.local
+
+# structure files
+_deploy/build_image/debug/requirements.txt
+_deploy/build_image/local/requirements.txt
+_deploy/build_image/prod/requirements.txt
+_deploy/build_image/test/requirements.txt
+
+_deploy/compose/debug/.env
+_deploy/compose/local/.env
+_deploy/compose/prod/.env
+_deploy/compose/test/.env

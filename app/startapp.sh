@@ -4,7 +4,12 @@ set -u
 echo "Usage: debug|local up|restart|down|logs"
 
 DIR0="$(dirname "$(readlink -f "$0")")"
+
+# il numero dopo -f è il livello di directory del path assoluto
+# considerare in aggiunta anche la root "/"
+PROJECT_NAME=$(echo "$DIR0" | cut -d'/' -f5)
 echo "$DIR0"
+echo "$PROJECT_NAME"
 
 NAME="$(basename "$DIR0")"
 echo "$NAME"
@@ -16,7 +21,6 @@ fi
 
 echo "$1 $2"
 
-COMPOSE_CONTEXT="../_deploy/compose/$1"
 IMAGE_CONTEXT="../_deploy/build_image"
 IMAGE_PROPERTIES_FILE="${IMAGE_CONTEXT}/images_version.properties"
 
@@ -42,14 +46,16 @@ if [ "$2" = "up" ]; then
   if ! docker image inspect $RECIPES_IMAGE_NAME >/dev/null 2>&1; then
     echo "Immagine $RECIPES_IMAGE_NAME non trovata. Procedo con la build."
     # Esegui il comando di build
-    sudo docker build -t $RECIPES_IMAGE_NAME $IMAGE_CONTEXT
+    cp ../_deploy/build_image/requirements.txt ${IMAGE_CONTEXT}/"$1"
+    sudo docker build -t $RECIPES_IMAGE_NAME ${IMAGE_CONTEXT}/"$1"
   else
     echo "Immagine $RECIPES_IMAGE_NAME già esistente."
   fi
 fi
 
-cd "$COMPOSE_CONTEXT" || exit
+cd ../_deploy/compose/"$1" || exit
 echo "RECIPES_IMAGE_NAME=$RECIPES_IMAGE_NAME" > .env
+echo "COMPOSE_PROJECT_NAME=${PROJECT_NAME}-$1" >> .env
 
 if [ "$2" = "up" ]; then
   sudo docker compose up -d
@@ -63,4 +69,4 @@ elif [ "$2" = "stop" ]; then
   sudo docker compose stop
 fi
 
-cd ../..
+#cd ../../app

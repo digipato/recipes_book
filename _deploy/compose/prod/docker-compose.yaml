@@ -8,3 +8,15 @@ services:
     volumes:
       - ../../../:/app
     command: python manage.py runserver 0.0.0.0:8000
+
+  db:
+    image: postgres:14.15-alpine3.21
+    environment:
+      POSTGRES_DB: recipes_book
+      POSTGRES_USER: gsu
+      POSTGRES_PASSWORD: gsu
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
